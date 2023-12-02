@@ -50,12 +50,10 @@ class Runner extends \HaeckseSarah\AoC23\lib\Runner\Runner
                     'id' => (int) substr($game, 5),
                     'rounds' => $rounds,
                     'max' => $rounds->reduce(
-                        function ($result, $draws) {
-                            $draws->each(
-                                function ($item) use ($result) {
-                                    $result[$item['color']] = max($result[$item['color']], $item['count']);
-                                }
-                            );
+                        function ($result, $draw) {
+                            $result['red'] = max($result['red'], $draw['red'] ?? 0);
+                            $result['green'] = max($result['green'], $draw['green'] ?? 0);
+                            $result['blue'] = max($result['blue'], $draw['blue'] ?? 0);
                             return $result;
                         },
                         new Collection([
@@ -71,15 +69,14 @@ class Runner extends \HaeckseSarah\AoC23\lib\Runner\Runner
 
     public function parseRound(string $round)
     {
-        return (new Collection(explode(',', $round)))
-            ->map(
-                function ($draw) {
-                    [$count,$color] = explode(' ', trim($draw));
-                    return [
-                        'color' => $color,
-                        'count' => (int) $count,
-                    ];
-                }
-            );
+        $result = new Collection();
+
+        $draws = explode(',', $round);
+        foreach ($draws as $map) {
+            [$count,$color] = explode(' ', trim($map));
+            $result[$color] = $count;
+        }
+
+        return $result;
     }
 }
