@@ -40,7 +40,7 @@ class Collection implements \ArrayAccess, \IteratorAggregate
     public function __toString()
     {
         return print_r($this->items, true);
-//        return json_encode($this->items);
+        //        return json_encode($this->items);
     }
 
     public function toArray()
@@ -177,10 +177,6 @@ class Collection implements \ArrayAccess, \IteratorAggregate
             return array_sum($this->items);
         }
 
-        // foo
-        /*
-        fooo
-        */
         return $this->reduce(function ($result, $item) use ($callback) {
             return $result + $callback($item);
         }, 0);
