@@ -12,6 +12,11 @@ abstract class Runner implements RunnerInterface
 
     public function __construct(Collection $input)
     {
-        $this->input = $input;
+        $this->input = $this->parseInput($input);
+    }
+
+    protected function parseInput(Collection $input): Collection
+    {
+        return $input;
     }
 }

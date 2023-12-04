@@ -16,7 +16,7 @@ class Runner extends \HaeckseSarah\AoC23\lib\Runner\Runner
 
     public function challengeA(): string
     {
-        return (string) $this->parseInput()
+        return (string) $this->input
                     ->filter(function ($round) {
                         return
                             $round['max']['red'] <= $this::MAX_CUBES['red']
@@ -28,7 +28,7 @@ class Runner extends \HaeckseSarah\AoC23\lib\Runner\Runner
 
     public function challengeB(): string
     {
-        return (string) $this->parseInput()
+        return (string) $this->input
         ->map(
             fn ($round) => $round['max']->reduce(fn ($product, $cubes) => $product * $cubes, 1)
         )
@@ -37,9 +37,9 @@ class Runner extends \HaeckseSarah\AoC23\lib\Runner\Runner
         );
     }
 
-    private function parseInput(): Collection
+    protected function parseInput($input): Collection
     {
-        return $this->input->map(
+        return $input->map(
             function ($line) {
                 //Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue
                 [$game, $gameInfo] = explode(':', $line, 2);

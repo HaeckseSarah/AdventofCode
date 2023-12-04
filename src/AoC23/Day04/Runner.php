@@ -10,7 +10,7 @@ class Runner extends \HaeckseSarah\AoC23\lib\Runner\Runner
 {
     public function challengeA(): string
     {
-        return (string) $this->parseInput()
+        return (string) $this->input
         ->reduce(function ($carry, $card) {
             return $carry + ($card['matches'] > 0 ? pow(2, $card['matches'] - 1) : 0);
         });
@@ -19,8 +19,7 @@ class Runner extends \HaeckseSarah\AoC23\lib\Runner\Runner
     public function challengeB(): string
     {
         $pile = new Collection();
-        $input = $this->parseInput();
-        $input->each(function ($card) use (&$pile) {
+        $this->input->each(function ($card) use (&$pile) {
             $id = $card['id'];
             $pile[$id] = ($pile[$id] ?? 0) + 1;
             for ($i = 1;$i <= $card['matches'];$i++) {
@@ -31,9 +30,9 @@ class Runner extends \HaeckseSarah\AoC23\lib\Runner\Runner
         return (string) $pile->sum();
     }
 
-    private function parseInput(): Collection
+    protected function parseInput($input): Collection
     {
-        return $this->input->map(function ($line) {
+        return $input->map(function ($line) {
             [$card,$game] = explode(':', $line);
             [$_,$cardId] = explode(' ', $card, 2);
             [$winString,$nrString] = explode('|', $game);

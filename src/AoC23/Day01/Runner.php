@@ -6,9 +6,6 @@ namespace HaeckseSarah\AoC23\Day01;
 
 use HaeckseSarah\AoC23\lib\Collection\Collection;
 
-/**
- * Undocumented class
- */
 class Runner extends \HaeckseSarah\AoC23\lib\Runner\Runner
 {
     public function challengeA(): string

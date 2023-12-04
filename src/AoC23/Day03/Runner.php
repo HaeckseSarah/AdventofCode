@@ -16,14 +16,12 @@ class Runner extends \HaeckseSarah\AoC23\lib\Runner\Runner
      */
     public function challengeA(): string
     {
-        $input = $this->parseInput();
-        $numbers = $this->findNumbers($input);
-
+        $numbers = $this->findNumbers($this->input);
 
         return (string) $numbers
-            ->filter(function ($number) use ($input) {
+            ->filter(function ($number) {
                 for ($i = ($number['start'] - 1);$i < ($number['end'] + 1);$i++) {
-                    $rows = $this->getAdjectingRows($input, $number['row']);
+                    $rows = $this->getAdjectingRows($this->input, $number['row']);
                     foreach ($rows as $row) {
                         if ($this->isSymbol($row[$i] ?? '.')) {
                             return true;
@@ -43,20 +41,14 @@ class Runner extends \HaeckseSarah\AoC23\lib\Runner\Runner
      */
     public function challengeB(): string
     {
-        $input = $this->parseInput();
-        $numbersByRow = $this->groupNumbersByRow($this->findNumbers($input));
+        $numbersByRow = $this->groupNumbersByRow($this->findNumbers($this->input));
 
-        return (string) $this->findGears($input, $numbersByRow)->sum();
+        return (string) $this->findGears($this->input, $numbersByRow)->sum();
     }
 
-    /**
-     * creates simple two dimensional collection from input
-     *
-     * @return Collection
-     */
-    public function parseInput(): Collection
+    protected function parseInput($input): Collection
     {
-        return $this->input->map(function ($line) {
+        return $input->map(function ($line) {
             return new Collection(str_split($line, 1));
         });
     }
