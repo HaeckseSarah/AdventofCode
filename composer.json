@@ -9,8 +9,8 @@
     },
     "autoload": {
         "psr-4": {
-            "HaeckseSarah\\AoC23\\": "./src/AoC23",
-            "HaeckseSarah\\AoC23\\Tests\\": "./tests"
+            "HaeckseSarah\\AoC\\": "./src/AoC",
+            "HaeckseSarah\\AoC\\Tests\\": "./tests"
         }
     },
     "authors": [
