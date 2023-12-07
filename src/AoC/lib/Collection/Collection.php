@@ -173,4 +173,11 @@ class Collection implements \ArrayAccess, \IteratorAggregate
             return $result + $callback($item);
         }, 0);
     }
+
+    public function sort(?callable $callback = null)
+    {
+        $items = $this->items;
+        usort($items, $callback);
+        return new static($items);
+    }
 }
